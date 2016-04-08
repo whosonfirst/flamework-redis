@@ -1,0 +1,7 @@
+	# START OF flamework-redis stuff
+
+	$GLOBALS['cfg']['redis_scheme'] = 'tcp';
+	$GLOBALS['cfg']['redis_host'] = 'localhost';
+	$GLOBALS['cfg']['redis_port'] = 6379;
+
+	# END OF flamework-redis stuff
