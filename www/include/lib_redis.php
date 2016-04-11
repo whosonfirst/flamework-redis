@@ -30,7 +30,10 @@
 			try {
 				$now = time();
 				$rsp = $client->echo($now);
-				dumper($rsp);
+
+				if ($rsp != $now){
+					return array('ok' => 0, 'error' => 'Connection establish but is full of weird');
+				}
 			}
 
 			catch (Exception $e) {
@@ -70,7 +73,9 @@
 			return $err;
 		}
 
-		return $client->get($key);
+		$value = $client->get($key);
+
+		return array('ok' => 1, 'value' => $value);
 	}
 
 	########################################################################
@@ -83,7 +88,11 @@
 			return $err;
 		}
 
-		return $client->set($key, $value);
+		# How best to test for errors?
+
+		$client->set($key, $value);
+
+		return array('ok' => 1);
 	}
 
 	########################################################################
@@ -96,7 +105,11 @@
 			return $err;
 		}
 
-		return $client->publish($channel, $msg);
+		$ok = $client->publish($channel, $msg);
+
+		# get last error? 
+
+		return array('ok' => $ok);
 	}
 
 	########################################################################
